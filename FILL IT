@@ -1,0 +1,185 @@
+#Subir archivo ----
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+
+from google.colab import files
+
+uploaded = files.upload()
+
+#SUBIDO ARCHIVO ---
+
+file_name = 'Nombre Archivo.xlsx'
+df = pd.read_excel(file_name, engine='openpyxl')
+
+print(df.head())
+
+uno = df['Nombre_de_Columna']
+
+###### MTC
+
+media = uno.mean()
+mediana = uno.median()
+moda = uno.mode()[0]
+
+# TEXTO
+
+print("El promedio de los ingresos de las compañías en dólares américanos es de $:", media)
+print("La Mediana de los ingresos de las compañías en Ecuador es de $", mediana)
+print("El valor que más se repite dentro de los datos es :", moda)
+
+
+## MEDIDAS DISPERSION
+
+rango = uno.max() - uno.min()
+varianza = uno.var()
+desviacion_estandar = uno.std()
+coeficiente_variacion = (desviacion_estandar / media) * 100
+
+#TEXTO 
+
+print("El rango es de", rango)
+print("La varianza dentro de los datos se encuentra en el valor de", varianza)
+print("La Desviación Estándar es de", desviacion_estandar)
+print("El Coeficiente de Variación en porcentaje es de", coeficiente_variacion)
+
+## MEDIDAS POSICIÓN
+
+percentil_29 = uno.quantile(0.porciento)
+decil_4 = uno.quantile(0.1 - 9)
+cuartil_3 = uno.quantile(0.25 - 0.5 - 0.75)
+
+#TEXTO
+
+print("El 29% de las empresas tienen ingresos en dólares americanos por ventas en 2022 según la Supercias de hasta $", percentil_29)
+print("El 40% de las empresas tienen ingresos en dólares americanos por ventas en 2022 según la Supercias de hasta $", decil_4)
+print("El 75% de las empresas tienen ingresos en dólares americanos por ventas en 2022 según la Supercias de hasta $", cuartil_3)
+
+## BIGOTES
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(x=uno)
+plt.title('Diagrama de caja de bigotes')
+plt.xlabel('NOMBRE EJE X')
+plt.show()
+
+
+## ASIMETRIA Y CURTOSIS
+
+asimetria = uno.skew()
+curtosis = uno.kurtosis()
+
+#TEXTO
+
+print("Asimetría:", asimetria)
+print("Curtosis:", curtosis)
+
+
+## BAYES
+
+En una base de datos de ventas, el 40% de las ventas son realizadas por vendedores con menos de 5 años de experiencia
+mientras que el 60% son realizadas por vendedores con 5 o más años de experiencia. 
+El 5% de las ventas realizadas por vendedores con menos de 5 años de experiencia exceden los  
+10,000,mientrasqueel15 10,000. Si se sabe que una venta excede los $10,000 
+¿cuál es la probabilidad de que haya sido realizada por un vendedor con menos de 5 años de experiencia?
+
+
+
+# Probabilidades dadas en porcentajes
+p_A = 40 / 100  # Probabilidad de menos de 5 años de experiencia
+p_B = 60 / 100  # Probabilidad de 5 o más años de experiencia
+p_D_given_A = 5 / 100  # Probabilidad de venta > $10,000 dado menos de 5 años de experiencia
+p_D_given_B = 15 / 100  # Probabilidad de venta > $10,000 dado 5 o más años de experiencia
+
+# Probabilidad total de que la venta exceda los $10,000
+p_D = p_D_given_A * p_A + p_D_given_B * p_B
+
+# Probabilidad de menos de 5 años de experiencia dado que la venta excede los $10,000 (Teorema de Bayes)
+p_A_given_D = (p_D_given_A * p_A) / p_D
+
+print("Probabilidad de menos de 5 años de experiencia dado que la venta excede los $10,000:", p_A_given_D * 100, "%")
+
+## 
+
+BINOMIAL
+
+En un mes, un vendedor realiza 20 ventas. Se sabe que la probabilidad de que una venta exceda los $10,000 es del 10%. 
+¿Cuál es la probabilidad de que exactamente 3 de esas 20 ventas excedan los $10,000?
+
+
+
+n = 20  # Número de ventas
+p = 10 / 100  # Probabilidad de éxito (venta > $10,000)
+k = 3  # Número de éxitos deseados
+
+binomial = stats.binom.pmf(k, n, p)
+print("Probabilidad de que exactamente 3 de las 20 ventas excedan los $10,000:", binomial * 100, "%")
+
+
+##HIPERGEOMETRICA
+
+
+En un conjunto de 50 ventas, 10 ventas exceden los $10,000 
+Si se seleccionan 15 ventas al azar sin reemplazo, ¿cuál es la probabilidad de que exactamente 3 de ellas excedan los $10,000?
+
+
+M = 50  # Número total de ventas
+n = 10  # Número de ventas que exceden los $10,000
+N = 15  # Número de ventas seleccionadas
+k = 3  # Número de éxitos deseados (ventas > $10,000)
+
+hipergeometrica = stats.hypergeom.pmf(k, M, n, N)
+print("Probabilidad de que exactamente 3 de las 15 ventas seleccionadas excedan los $10,000:", hipergeometrica * 100, "%")
+
+
+## POISSON
+
+poisson = "El número de ventas que exceden los $10,000 en un día sigue una distribución de 
+Poisson con una media de 2 ventas por día. ¿Cuál es la probabilidad de que en un día se registren exactamente 5 ventas que excedan los $10,000?"
+
+print(poisson)
+
+mu = 2  # Media de la distribución (ventas > $10,000 por día)
+k = 5  # Número de eventos deseados (ventas > $10,000)
+
+poisson = stats.poisson.pmf(k, mu)
+print("Probabilidad de registrar exactamente 5 ventas > $10,000 en un día:", poisson * 100, "%")
+
+
+## NORMAL CON GRAFICO
+
+
+Las ventas diarias en una empresa siguen una distribución normal con una media de $5,000 y una desviación estándar de $1,500. 
+Realiza un gráfico de la distribución de las ventas diarias y calcula la probabilidad de que una venta seleccionada al azar esté entre $4,000 y $6,000.
+
+
+media = 5000
+desviacion_estandar = 1500
+
+# Generar datos de ejemplo (opcional)
+datos = np.random.normal(media, desviacion_estandar, 286)
+
+# Graficar la distribución normal
+plt.figure(figsize=(10, 6))
+sns.histplot(datos, kde=True)
+plt.title('Distribución Normal de Ventas Diarias')
+plt.xlabel('Ventas Diarias ($)')
+plt.ylabel('Frecuencia')
+plt.show()
+
+# Calcular la probabilidad de que una venta esté entre $4,000 y $6,000
+probabilidad = stats.norm.cdf(6000, media, desviacion_estandar) - stats.norm.cdf(4000, media, desviacion_estandar)
+print("Probabilidad de que una venta esté entre $4,000 y $6,000:", probabilidad * 100, "%")
+
+
+
+##ENDR
+
+
+
+
+
