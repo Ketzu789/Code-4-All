@@ -261,3 +261,22 @@ print(f"El valor de X (millas mínimas garantizadas) es: {X:.2f}")
 area_calculada = norm.cdf((X - mu) / sigma)
 print(f"Área calculada para verificar: {area_calculada:.4f}")
 
+
+
+
+
+###### COMO PEDIR
+
+
+1) En google colab vamos a subir este archivo y vamos a programar en python dame el código para subirlo y toma en cuenta el archivo que te adjunte
+
+ahora quisiera que me des todos los códigos para calcular todo lo de la foto y toma en cuenta los datos del archivo que te adjunte, la variable que representa los datos del archivo que usarás se llama sueldos = df[sueldos]
+
+los gráficos y demás tienen los datos de la base de datos?
+
+
+2) haz que la media, mediana y moda tengan solo dos decimales
+
+
+
+3) dame enunciados los cuales se resuelvan con los códigos que me brindaste para teorema de bayes, distribucion binomial, distribucion hipergeometrica, distribucion de poisson y distribucion normal con gráfica. recuerda tomar en cuenta que son en función de la base de datos que posee tus datos y es de tu columna y recuerda que las probabilidades son en porcentajes
