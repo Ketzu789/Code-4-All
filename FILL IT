@@ -234,3 +234,30 @@ pro_format= "{:.2f}".format(variable_poisson * 100)
 
 print(f"Probabilidad de que una empresa realice exactamente 5 ventas adicionales en un mes:: {pro_format}%")
 
+
+
+################ PROBLEMA REPASO
+
+
+# Importar las bibliotecas necesarias
+import numpy as np
+from scipy.stats import norm
+
+# Definir los parámetros conocidos
+mu = 67900  # Media
+sigma = 2050  # Desviación estándar
+area_bajo_curva = 0.0400  # Área bajo la curva a la izquierda de X
+
+# Calcular el valor z correspondiente al área bajo la curva
+z = norm.ppf(area_bajo_curva)
+
+# Calcular el valor de X usando la fórmula de la distribución normal
+X = mu + z * sigma
+
+# Mostrar el resultado
+print(f"El valor de X (millas mínimas garantizadas) es: {X:.2f}")
+
+# Verificar el cálculo
+area_calculada = norm.cdf((X - mu) / sigma)
+print(f"Área calculada para verificar: {area_calculada:.4f}")
+
