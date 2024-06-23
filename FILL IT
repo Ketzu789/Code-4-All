@@ -180,6 +180,57 @@ print("Probabilidad de que una venta esté entre $4,000 y $6,000:", probabilidad
 ##ENDR
 
 
+##FIXES
+
+- No lee espacios vacios : 
+
+# Convert the 'variable' column to numeric, coercing errors to NaN
+df['fila'] = pd.to_numeric(df['fila'], errors='coerce')
+
+varr = df['fila']
 
 
+espacio : \n
+
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+
+# Datos del problema
+media = 50000
+desviacion_estandar = 5000
+valor_inferior = 30000
+valor_superior = 70000
+
+# Calcular la probabilidad utilizando la función de distribución acumulativa (CDF)
+prob_inferior = stats.norm.cdf(valor_inferior, media, desviacion_estandar)
+prob_superior = stats.norm.cdf(valor_superior, media, desviacion_estandar)
+prob_entre = prob_superior - prob_inferior
+
+# Graficar la distribución normal y el área bajo la curva entre los valores específicos
+x = np.linspace(media - 3*desviacion_estandar, media + 3*desviacion_estandar, 100)
+y = stats.norm.pdf(x, media, desviacion_estandar)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, label='Distribución Normal')
+plt.fill_between(x, y, 0, where=((x >= valor_inferior) & (x <= valor_superior)), color='blue', alpha=0.5)
+plt.title('Distribución Normal - Probabilidad de ingresos entre $30,000 y $70,000')
+plt.xlabel('Ingresos por ventas 2022')
+plt.ylabel('Densidad de probabilidad')
+plt.axvline(valor_inferior, color='red', linestyle='--', label=f'${valor_inferior}')
+plt.axvline(valor_superior, color='green', linestyle='--', label=f'${valor_superior}')
+plt.legend()
+plt.grid()
+plt.show()
+
+print(f'La probabilidad de que los ingresos por ventas estén entre ${valor_inferior} y ${valor_superior} es {prob_entre * 100:.2f}%')
+
+
+
+##FIX PORCENTAJE
+
+
+pro_format= "{:.2f}".format(variable_poisson * 100) 
+
+print(f"Probabilidad de que una empresa realice exactamente 5 ventas adicionales en un mes:: {pro_format}%")
 
