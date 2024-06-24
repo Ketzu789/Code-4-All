@@ -28,9 +28,9 @@ moda = uno.mode()[0]
 
 # TEXTO
 
-print("El promedio de los ingresos de las compañías en dólares américanos es de $:", media)
-print("La Mediana de los ingresos de las compañías en Ecuador es de $", mediana)
-print("El valor que más se repite dentro de los datos es :", moda)
+print("El promedio de los define_variable:", media)
+print("El valor central dlos de los define_variable:", mediana)
+print("La mayoría de de los define_variable:, por ende el valor más repetitivo es", moda)
 
 
 ## MEDIDAS DISPERSION
@@ -42,16 +42,16 @@ coeficiente_variacion = (desviacion_estandar / media) * 100
 
 #TEXTO 
 
-print("El rango es de", rango)
-print("La varianza dentro de los datos se encuentra en el valor de", varianza)
-print("La Desviación Estándar es de", desviacion_estandar)
-print("El Coeficiente de Variación en porcentaje es de", coeficiente_variacion)
+print(f"El rango es de {rango:.2f}")
+print(f"La varianza dentro de define_variable es de {varianza:.2f}")
+print(f"La Desviación Estándar en relacion a la media, de define_variable es de $ {desviacion_estandar:.2f}")
+print(f"El Porcentaje del coeficiente de Variación en porcentaje de define_variable, {coeficiente_variacion:.2f}%")
 
 ## MEDIDAS POSICIÓN
 
-percentil_29 = uno.quantile(0.porciento)
-decil_4 = uno.quantile(0.1 - 9)
-cuartil_3 = uno.quantile(0.25 - 0.5 - 0.75)
+percentil_29 = uno.quantile(0.porciento).round(2)
+decil_4 = uno.quantile(0.1 - 9).round(2)
+cuartil_3 = uno.quantile(0.25 - 0.5 - 0.75).round(2)
 
 #TEXTO
 
